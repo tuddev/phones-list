@@ -2,17 +2,9 @@ import { TextField, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Field, Form } from "react-final-form";
-import { LoginFormStore } from "../LoginForm/store";
 
-type ILoginFormNameProps = {
-  loginFormStore: LoginFormStore;
-};
-
-export const LoginFormName: React.FC<ILoginFormNameProps> = ({
-  loginFormStore,
-}) => {
+export const LoginFormName: React.FC = () => {
   const required = (value: string) => {
-    loginFormStore.requiredName = Boolean(value);
     return value && value !== "" ? null : (
       <Typography variant="subtitle2" color="error">
         Это поле обязательно

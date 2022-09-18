@@ -5,13 +5,7 @@ import { LoginFormName } from "../LoginFormName";
 import { LoginFormPassword } from "../LoginFormPassword";
 import { LoginFormStore } from "./store";
 
-const loginFormStore = new LoginFormStore();
-
-type ILoginFormProps = {
-  isRequireName: boolean;
-};
-
-export const LoginForm: React.FC<ILoginFormProps> = ({ isRequireName }) => {
+export const LoginForm: React.FC = () => {
   return (
     <Grid
       container
@@ -20,15 +14,12 @@ export const LoginForm: React.FC<ILoginFormProps> = ({ isRequireName }) => {
       justifyContent="space-between"
       alignItems="flex-end"
     >
-      {isRequireName ? (
-        <Grid item>
-          <LoginFormName loginFormStore={loginFormStore}/>
-        </Grid>
-      ) : (
-        <Grid item>
-          <LoginFormPassword />
-        </Grid>
-      )}
+      <Grid item>
+        <LoginFormName />
+      </Grid>
+      <Grid item>
+        <LoginFormPassword />
+      </Grid>
     </Grid>
   );
 };

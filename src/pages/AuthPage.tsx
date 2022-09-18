@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { LoginCard } from './components/LoginCard';
+import { LoginCard } from '../components';
 
-export const AuthorisationPage: React.FC = () => {
+export const AuthPage: React.FC = () => {
   return <Grid
     container
     direction="column"
@@ -17,4 +17,4 @@ export const AuthorisationPage: React.FC = () => {
   </Grid> 
 }
 
-observer(AuthorisationPage)
+observer(AuthPage)

@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { MainLayout } from '../MainLayout';
-import { ContactsList } from './components/ContactsList';
+import { MainLayout, ContactsList } from '../components';
 
 export const ContactsPage: React.FC = () => {
   return <MainLayout>
