@@ -1,0 +1,1 @@
+export {LoginFormPassword} from './login-form-pasword'
