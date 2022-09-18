@@ -1,1 +1,1 @@
-export {LoginFormName} from './login-form-name'
+export { LoginFormName } from './login-form-name';

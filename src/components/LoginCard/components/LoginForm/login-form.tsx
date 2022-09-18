@@ -1,9 +1,8 @@
-import { Grid } from "@mui/material";
-import { observer } from "mobx-react";
-import React from "react";
-import { LoginFormName } from "../LoginFormName";
-import { LoginFormPassword } from "../LoginFormPassword";
-import { LoginFormStore } from "./store";
+import { Grid } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { LoginFormName } from '../LoginFormName';
+import { LoginFormPassword } from '../LoginFormPassword';
 
 export const LoginForm: React.FC = () => {
   return (

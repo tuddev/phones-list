@@ -1,5 +1,6 @@
-import { Container } from "@mui/system";
-import React from "react";
+
+import { Container } from '@mui/material';
+import React from 'react';
 
 export const ContainerContent: React.FC<React.PropsWithChildren> = ({
   children,

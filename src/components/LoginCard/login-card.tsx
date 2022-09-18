@@ -1,19 +1,19 @@
-import { Button, Grid, Paper, Typography } from "@mui/material";
-import { observer } from "mobx-react";
-import React from "react";
-import { HeaderLoginCard, LoginForm } from "./components";
+import { Grid, Paper } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { HeaderLoginCard, LoginForm } from './components';
 
 export const LoginCard: React.FC = () => {
   return (
-    <Paper elevation={10} style={{ padding: "40px" }}>
+    <Paper elevation={10} style={{ padding: '40px' }}>
       <Grid
         container
         alignItems="center"
         style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "300px",
-          width: "300px",
+          display: 'flex',
+          flexDirection: 'column',
+          height: '300px',
+          width: '300px',
         }}
       >
         <Grid item>

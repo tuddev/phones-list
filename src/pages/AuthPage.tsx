@@ -14,7 +14,7 @@ export const AuthPage: React.FC = () => {
     <Grid item xs={3}>
       <LoginCard />
     </Grid>   
-  </Grid> 
-}
+  </Grid>; 
+};
 
-observer(AuthPage)
+observer(AuthPage);

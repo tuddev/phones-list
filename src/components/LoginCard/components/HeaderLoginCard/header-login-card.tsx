@@ -1,5 +1,5 @@
-import { Grid, Typography } from "@mui/material";
-import React from "react";
+import { Grid, Typography } from '@mui/material';
+import React from 'react';
 
 export const HeaderLoginCard: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ export const HeaderLoginCard: React.FC = () => {
       justifyContent="center"
       flexDirection="column"
       rowGap={3}
-      style={{ marginBottom: "20px" }}
+      style={{ marginBottom: '20px' }}
     >
       <Grid item>
         <Grid item>

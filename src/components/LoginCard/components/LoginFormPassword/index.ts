@@ -1,1 +1,1 @@
-export {LoginFormPassword} from './login-form-pasword'
+export { LoginFormPassword } from './login-form-pasword';

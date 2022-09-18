@@ -1,1 +1,1 @@
-export { HeaderLoginCard } from "./header-login-card";
+export { HeaderLoginCard } from './header-login-card';

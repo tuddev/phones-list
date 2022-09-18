@@ -1,7 +1,7 @@
-import { TextField, Typography } from "@mui/material";
-import { observer } from "mobx-react-lite";
-import React from "react";
-import { Field, Form } from "react-final-form";
+import { TextField, Typography } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { Field, Form } from 'react-final-form';
 
 export const LoginFormPassword: React.FC = () => {
   const required = (value: string) =>
@@ -13,7 +13,7 @@ export const LoginFormPassword: React.FC = () => {
 
   return (
     <Form
-      onSubmit={() => console.log("submit")}
+      onSubmit={() => console.log('submit')}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Field name="password" validate={required}>
@@ -23,7 +23,7 @@ export const LoginFormPassword: React.FC = () => {
                   type="text"
                   label="Введите пароль"
                   variant="outlined"
-                  color={meta.touched ? "error" : "info"}
+                  color={meta.touched ? 'error' : 'info'}
                   {...input}
                 />
                 {meta.error && meta.touched && <span>{meta.error}</span>}

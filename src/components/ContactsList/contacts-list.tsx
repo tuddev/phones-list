@@ -1,6 +1,6 @@
-import { Container } from "@mui/material";
-import { observer } from "mobx-react";
-import React from "react";
+import { Container } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 
 export const ContactsList: React.FC = () => {
   return (
