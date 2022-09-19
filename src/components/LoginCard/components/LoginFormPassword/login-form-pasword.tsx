@@ -1,9 +1,13 @@
 import { TextField, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Field, Form } from 'react-final-form';
+import { Field } from 'react-final-form';
 
-export const LoginFormPassword: React.FC = () => {
+type TLoginFormNameProps = {
+  validate: (values: Record<string, string>) => Record<string, string>;
+};
+
+export const LoginFormPassword: React.FC<TLoginFormNameProps> = () => {
   const required = (value: string) =>
     value ? null : (
       <Typography variant="subtitle2" color="coral">
@@ -12,27 +16,23 @@ export const LoginFormPassword: React.FC = () => {
     );
 
   return (
-    <Form
-      onSubmit={() => console.log('submit')}
-      render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <Field name="password" validate={required}>
-            {({ input, meta }) => (
-              <div>
-                <TextField
-                  type="text"
-                  label="Введите пароль"
-                  variant="outlined"
-                  color={meta.touched ? 'error' : 'info'}
-                  {...input}
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-        </form>
+    <Field name="password" validate={required} fullWidth >
+      {({ input, meta }) => (
+        <>
+          <TextField
+            fullWidth
+            type="text"
+            error={meta.error && meta.touched}
+            margin="normal"
+            helperText={meta.error && meta.touched ? 'Это поле обязательно' : ''}
+            label="Введите пароль"
+            variant="outlined"
+            color={meta.error && meta.touched ? 'error' : 'info'}
+            {...input}
+          />
+        </>
       )}
-    />
+    </Field>
   );
 };
 

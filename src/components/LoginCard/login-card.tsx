@@ -1,39 +1,30 @@
-import { Grid, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { HeaderLoginCard, LoginForm } from './components';
+import {
+  HeaderLoginCard,
+  LoginForm,
+  LoginFormName,
+  LoginFormPassword,
+} from './components';
 
-export const LoginCard: React.FC = () => {
+export const LoginCard: React.FC = observer(() => {
   return (
-    <Paper elevation={10} style={{ padding: '40px' }}>
-      <Grid
-        container
-        alignItems="center"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '300px',
-          width: '300px',
-        }}
-      >
-        <Grid item>
-          <HeaderLoginCard />
-        </Grid>
-        <Grid
-          item
-          container
-          flexDirection="column"
-          justifyContent="space-between"
-          alignItems="flex-end"
-          rowGap={6}
-        >
-          <Grid item>
-            <LoginForm />
-          </Grid>
-        </Grid>
-      </Grid>
+    <Paper elevation={10} style={{ padding: '40px', minWidth: 300 }}>
+      <HeaderLoginCard />
+
+      <LoginForm>
+        <LoginFormName />
+        <LoginFormPassword
+          validate={(values: Record<string, string>) => {
+            const errors: Record<string, string> = {};
+            if (!values.name) {
+              errors.name = 'Required';
+            }
+            return errors;
+          }}
+        />
+      </LoginForm>
     </Paper>
   );
-};
-
-observer(LoginCard);
+});
