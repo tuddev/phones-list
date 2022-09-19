@@ -5,7 +5,6 @@ import React from 'react';
 export const ContactsList: React.FC = () => {
   return (
     <Container>
-      Contacts
     </Container>
   );
 };
