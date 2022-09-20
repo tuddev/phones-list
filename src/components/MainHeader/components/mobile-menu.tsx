@@ -8,12 +8,12 @@ export type TMobileMenuProps = {
   mobileMoreAnchorEl: HTMLElement;
   mobileMenuId: string;
   isMobileMenuOpen: boolean;
-  handleMobileMenuClose: (event: React.MouseEvent<HTMLElement>) => void;
+  onClose: () => void;
   handleProfileMenuOpen: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
 export const MobileMenu: React.FC<TMobileMenuProps> = ({
-  handleMobileMenuClose,
+  onClose,
   handleProfileMenuOpen,
   isMobileMenuOpen,
   mobileMenuId,
@@ -33,7 +33,7 @@ export const MobileMenu: React.FC<TMobileMenuProps> = ({
         horizontal: 'right',
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
+      onClose={onClose}
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">

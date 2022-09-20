@@ -25,9 +25,6 @@ export const MainHeader = observer(() => {
     setMobileMoreAnchorEl(null);
   };
 
-  const menuId = 'primary-search-account-menu';
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -46,9 +43,6 @@ export const MainHeader = observer(() => {
             <IconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
@@ -59,13 +53,11 @@ export const MainHeader = observer(() => {
       </AppBar>
       <MainHeaderMenu
         handleProfileMenuOpen={handleProfileMenuOpen}
-        mobileMenuId={mobileMenuId}
         mobileMoreAnchorEl={mobileMoreAnchorEl}
         isMobileMenuOpen={isMobileMenuOpen}
-        handleMobileMenuClose={handleMobileMenuClose}
+        onClose={handleMobileMenuClose}
         anchorEl={anchorEl}
         isMenuOpen={isMenuOpen}
-        menuId={menuId}
         setAnchorEl={setAnchorEl}
       />
     </Box>

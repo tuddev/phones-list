@@ -5,8 +5,8 @@ export type TDesktopMenuProps = {
   isMenuOpen: boolean;
   anchorEl: HTMLElement;
   menuId: string;
-  setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement>>;
-  handleMobileMenuClose: () => void;
+  setAnchorEl: (value: HTMLElement)  => void;
+  onClose: () => void;
 };
 
 export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
@@ -14,12 +14,13 @@ export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
   isMenuOpen,
   menuId,
   setAnchorEl,
-  handleMobileMenuClose,
+  onClose,
 }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    onClose();
   };
+  
   return (
     <Menu
       anchorEl={anchorEl}
