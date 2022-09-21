@@ -4,6 +4,7 @@ import React, { Children } from 'react';
 import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
 import { loginFormStore } from '../LoginFormStore';
+import { Link } from 'react-router-dom';
 
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
@@ -54,6 +55,13 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
                   >
                     Назад
                   </Button>
+                )}
+                {loginFormStore.formStepNumber === 0 && (
+                  <Link
+                    to="/signup"
+                  >
+                    Нет аккаунта? Создать!
+                  </Link>
                 )}
               </Grid>
               <Grid item>
