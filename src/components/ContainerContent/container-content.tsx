@@ -10,8 +10,8 @@ export const ContainerContent: React.FC<React.PropsWithChildren> = ({
         style={{
           backgroundColor: '#fff',
           borderRadius: 20,
-          padding: 40,
         }}
+        sx={{ pt: 3, pb: 3 }}
         elevation={4}
       >
         {children}
