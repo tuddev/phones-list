@@ -4,10 +4,13 @@ import React, { Children } from 'react';
 import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
 import { loginFormStore } from '../LoginFormStore';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginStore } from '../../../../stores';
 
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
+    const navigate = useNavigate();
+
     const childrenAsArray = Children.toArray(children);
     const isLastPage =
       loginFormStore.formStepNumber === React.Children.count(children) - 1;
@@ -23,7 +26,10 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
 
     const handleFormSubmit = (values: Record<string, string>) => {
       if (isLastPage) {
-        return console.log(values, 'submit');
+        loginStore.auth(values.email, values.password)
+          .then(() => {
+            navigate('/');
+          });
       } else {
         loginFormStore.nextStep();
       }

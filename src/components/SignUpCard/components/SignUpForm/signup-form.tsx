@@ -2,11 +2,16 @@ import { Button, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Field, Form } from 'react-final-form';
+import { loginStore } from '../../../../stores';
+
 
 export const SignUpForm: React.FC = observer(() => {
+  const handleFormSubmit = (values: { email: string; name: string; password: string }) => {
+    loginStore.signup(values.name, values.email, values.password);
+  };
   return (
     <Form
-      onSubmit={() => void 0}
+      onSubmit={handleFormSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <Field name="name">
