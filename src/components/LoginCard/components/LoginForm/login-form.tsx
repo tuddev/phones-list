@@ -26,9 +26,13 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
 
     const handleFormSubmit = (values: Record<string, string>) => {
       if (isLastPage) {
-        loginStore.auth(values.email, values.password)
+        loginStore.login(values.email, values.password)
           .then(() => {
+            console.log('logged');
             navigate('/');
+          })
+          .catch(() => {
+            console.log('catch');
           });
       } else {
         loginFormStore.nextStep();

@@ -9,6 +9,8 @@ export enum HttpCodes {
   UNAUTHORIZED = 401,
 }
 
+const BACKEND_URL = 'http://localhost:3001';
+
 class HttpClient {
   private axiosInstance: AxiosInstance;
 
@@ -46,13 +48,13 @@ class HttpClient {
 
   get(url: string, data: object = {}) {
     const params = new URLSearchParams(Object.entries(data));
-    const resultUrl = 'http://localhost:3001' + url;
+    const resultUrl = BACKEND_URL + url;
 
     return this.axiosInstance.get(resultUrl, { params });
   }
 
   async post(url: string, data: object) {
-    const resultUrl = 'http://localhost:3001' + url;
+    const resultUrl = BACKEND_URL + url;
 
     try {
       const response = await this.axiosInstance.post(resultUrl, data);

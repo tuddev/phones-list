@@ -6,12 +6,54 @@ class LoginStore {
   constructor() {
     makeAutoObservable(this);
   }
-  
-  async auth(email: string, password: string) {
-    const response = await httpClient.post('/login', {
-      email,
-      password,
+
+  private setUserDataToStorage(user: Record<string, string> | null, accessToken: string) {
+    localStorage.setItem('token-contact', accessToken);
+    localStorage.setItem('user-contact', JSON.stringify(user));
+  }
+
+  private setTokenToHeader = (accessToken: string) => {
+    httpClient.updateCommonHeaders({
+      Authorization: `Bearer ${accessToken}`,
     });
+  };
+
+  private setUserData(user: Record<string, string>, accessToken: string)  {
+    this.setUserDataToStorage(user, accessToken);
+    this.setTokenToHeader(accessToken);
+  }
+
+  async checkUserIsLogged() {
+    const token = localStorage.getItem('token-contact');
+    this.setTokenToHeader(token);
+
+    const user = localStorage.getItem('user-contact');
+    console.log(token, user);
+    if (token && user) {
+      try {
+        const response = await httpClient.get('/check');
+        console.log(response);
+        if (response.status === 200) return true;
+        return false;
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  async login(email: string, password: string) {
+    try {
+      const response = await httpClient.post('/login', {
+        email,
+        password,
+      });
+
+      this.setUserData(response.data.user, response.data.accessToken);
+    } catch {
+      throw new Error('Не получилось авторизоваться');
+    }
+    
   }
 
   async signup(name: string, email: string, password: string) {
@@ -23,21 +65,16 @@ class LoginStore {
         password,
       });
 
-      
-      this.setTokenToHeader(response.data.accessToken);
-      localStorage.setItem('token-ts', response.data.accessToken);
-
+      this.setUserData(response.data.user, response.data.accessToken);
     } catch (error) {
       throw new Error('Ошибка при регистрации' + error);
     }
-    
   }
-
-  private setTokenToHeader = (token: string) => {
-    httpClient.updateCommonHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-  };
+  
+  logout(): void {
+    this.setUserDataToStorage(null, '');
+    this.setTokenToHeader('');
+  }
 }
 
 export const loginStore = new LoginStore();

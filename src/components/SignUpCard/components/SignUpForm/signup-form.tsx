@@ -2,12 +2,26 @@ import { Button, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Field, Form } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 import { loginStore } from '../../../../stores';
 
-
 export const SignUpForm: React.FC = observer(() => {
-  const handleFormSubmit = (values: { email: string; name: string; password: string }) => {
-    loginStore.signup(values.name, values.email, values.password);
+  const navigate = useNavigate();
+
+  const handleFormSubmit = (values: {
+    email: string;
+    name: string;
+    password: string;
+  }) => {
+    loginStore
+      .signup(values.name, values.email, values.password)
+      .then(() => {
+        console.log('logged');
+        navigate('/');
+      })
+      .catch(() => {
+        console.log('catch');
+      });
   };
   return (
     <Form
@@ -74,9 +88,7 @@ export const SignUpForm: React.FC = observer(() => {
               </>
             )}
           </Field>
-          <Button type="submit">
-            Создать аккаунт
-          </Button>
+          <Button type="submit">Создать аккаунт</Button>
         </form>
       )}
     ></Form>
