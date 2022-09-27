@@ -16,7 +16,7 @@ export const ContactsList: React.FC = observer(() => {
     <Container>
       <List>
         {
-          contactsStore.contacts.map((contact: ContactModel) => (
+          contactsStore.filteredContacts.map((contact: ContactModel) => (
             <ContactItem key={contact.id} contact={contact}/>
           ))
         }

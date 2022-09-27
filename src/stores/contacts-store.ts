@@ -6,8 +6,10 @@ class ContactsStore {
     makeAutoObservable(this);
   }
 
-  contacts: Array<ContactModel> = [];
+  private contacts: Array<ContactModel> = [];
 
+  searchQuery = '';
+  
   async init() {
     try {
       const contacts = await contactsService.get();
@@ -40,6 +42,16 @@ class ContactsStore {
     this.contacts.push(newContact.data);
   }
 
+  get filteredContacts() {
+    if (!this.searchQuery) return this.contacts;
+
+    return this.contacts.filter((contact) => {
+      if (contact.name.includes(this.searchQuery)) return true;
+      if (contact.tel.includes(this.searchQuery)) return true;
+
+      return false;
+    }); 
+  }
 }
 
 export const contactsStore = new ContactsStore();
