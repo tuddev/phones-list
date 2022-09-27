@@ -4,7 +4,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-import { loginStore } from '../stores';
+import { loginStore } from '../services';
 
 export enum HttpCodes {
   UNAUTHORIZED = 401,
@@ -30,7 +30,7 @@ class HttpClient {
     );
     this.axiosInstance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        const token = localStorage.getItem('token-ts');
+        const token = loginStore.token;
         return {
           ...config,
           headers: {

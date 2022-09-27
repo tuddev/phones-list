@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { loginStore } from '../../stores';
+import { loginStore } from '../../services';
 
 type TProtectedRouteProps = {
   redirectPath?: string;

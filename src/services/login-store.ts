@@ -1,11 +1,8 @@
-import { makeAutoObservable } from 'mobx';
 import { httpClient } from '../utils';
 import { v4 as uuid } from 'uuid';
 
 class LoginStore {
-  constructor() {
-    makeAutoObservable(this);
-  }
+  token: string | null = null;
 
   private setUserDataToStorage(user: Record<string, string> | null, accessToken: string) {
     localStorage.setItem('token-contact', accessToken);
@@ -19,6 +16,7 @@ class LoginStore {
   };
 
   private setUserData(user: Record<string, string>, accessToken: string)  {
+    this.token = accessToken;
     this.setUserDataToStorage(user, accessToken);
     this.setTokenToHeader(accessToken);
   }

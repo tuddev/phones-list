@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
-import { loginStore } from '../../../../stores';
+import { loginStore } from '../../../../services';
 
 export const SignUpForm: React.FC = observer(() => {
   const navigate = useNavigate();
