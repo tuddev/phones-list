@@ -1,23 +1,27 @@
-import { Container } from '@mui/material';
+import { Container, List } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { contactsService, loginStore } from '../../services';
+import { ContactModel, contactsService, loginStore } from '../../services';
+import { contactsStore } from '../../stores';
 import { ContactItem } from '../ContactItem';
 
 
-export const ContactsList: React.FC = () => {
+export const ContactsList: React.FC = observer(() => {
   useEffect(() => {
-    contactsService.init(loginStore.getUser().id);
+    contactsService.init(loginStore.getUser()?.id);
+    contactsStore.init();
   }, []);
   
   return (
     <Container>
-      <ContactItem/>
-      <ContactItem/>
-      <ContactItem/>
-      <ContactItem/>
+      <List>
+        {
+          contactsStore.contacts.map((contact: ContactModel) => (
+            <ContactItem key={contact.id} contact={contact}/>
+          ))
+        }
+      </List>
     </Container>
   );
-};
+});
 
-observer(ContactsList);
