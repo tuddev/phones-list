@@ -6,6 +6,7 @@ import {
   DialogActions,
   Button,
   IconButton,
+  Typography,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
@@ -13,11 +14,20 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Field, Form } from 'react-final-form';
 import { Contact, ContactModel } from '../../services';
 import AddIcon from '@mui/icons-material/Add';
+import InputMask from 'react-input-mask';
 
 type TContactEditProps = {
   onSubmit: (values: Contact) => Promise<void>;
   contact?: ContactModel;
-  variant?: 'edit' | 'add'
+  variant?: 'edit' | 'add';
+};
+
+const required = (value: string) => {
+  return value && value !== '' ? null : (
+    <Typography variant="subtitle2" color="error">
+      Это поле обязательно
+    </Typography>
+  );
 };
 
 export const ContactEdit: React.FC<TContactEditProps> = observer(
@@ -33,37 +43,46 @@ export const ContactEdit: React.FC<TContactEditProps> = observer(
     };
 
     const handleFormSubmit = (values: Contact) => {
-      onSubmit(values)
-        .then(() => handleClose());
+      onSubmit(values).then(() => handleClose());
     };
 
-    let submit: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void = () => void 0;
-    const Icon = variant === 'add' ? AddIcon : EditIcon;
+    let submit: (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void = () => void 0;
+    const isAddVariant = variant === 'add';
+    const Icon = isAddVariant ? AddIcon : EditIcon;
     return (
       <>
         <IconButton onClick={handleClickOpen} edge="end">
-          <Icon htmlColor={variant === 'add' ? '#fff' : undefined}/>
+          <Icon htmlColor={isAddVariant ? '#fff' : undefined} />
         </IconButton>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>{variant === 'add' ? 'Добавить контакт' : 'Изменить контакт'}</DialogTitle>
+          <DialogTitle>
+            {isAddVariant ? 'Добавить контакт' : 'Изменить контакт'}
+          </DialogTitle>
           <DialogContent>
             <>
               <Form
                 onSubmit={handleFormSubmit}
-                initialValues={contact ? {
-                  name: contact.name,
-                  email: contact.email,
-                  tel: contact.tel,
-                } : undefined}
+                initialValues={
+                  contact
+                    ? {
+                      name: contact.name,
+                      email: contact.email,
+                      tel: contact.tel,
+                    }
+                    : undefined
+                }
                 render={({ handleSubmit }) => {
                   submit = handleSubmit;
                   return (
                     <form onSubmit={handleSubmit}>
-                      <Field name="name">
+                      <Field name="name" validate={required}>
                         {({ input, meta }) => (
                           <>
                             <TextField
                               fullWidth
+                              autoFocus
                               required
                               type="text"
                               error={meta.error && meta.touched}
@@ -86,24 +105,25 @@ export const ContactEdit: React.FC<TContactEditProps> = observer(
                       <Field name="tel" type="tel">
                         {({ input, meta }) => (
                           <>
-                            <TextField
-                              fullWidth
-                              type="tel"
-                              required
-                              error={meta.error && meta.touched}
-                              margin="normal"
-                              helperText={
-                                meta.error && meta.touched
-                                  ? 'Это поле обязательно'
-                                  : ''
-                              }
-                              label="Телефон"
-                              variant="outlined"
-                              color={
-                                meta.error && meta.touched ? 'error' : 'info'
-                              }
-                              {...input}
-                            />
+                            <InputMask mask="(+7)-999-999-99-99" {...input}>
+                              <TextField
+                                fullWidth
+                                type="tel"
+                                error={meta.error && meta.touched}
+                                margin="normal"
+                                helperText={
+                                  meta.error && meta.touched
+                                    ? 'Это поле обязательно'
+                                    : ''
+                                }
+                                label="Телефон"
+                                variant="outlined"
+                                color={
+                                  meta.error && meta.touched ? 'error' : 'info'
+                                }
+                                {...input}
+                              />
+                            </InputMask>
                           </>
                         )}
                       </Field>
@@ -113,7 +133,6 @@ export const ContactEdit: React.FC<TContactEditProps> = observer(
                             <TextField
                               fullWidth
                               type="text"
-                              required
                               error={meta.error && meta.touched}
                               margin="normal"
                               helperText={
