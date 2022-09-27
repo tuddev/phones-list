@@ -10,16 +10,10 @@ type TProtectedRouteProps = {
 export const ProtectedRoute: React.FC<
 React.PropsWithChildren<TProtectedRouteProps>
 > = ({ redirectPath = '/login', children }) => {
-  const [isLogged, setIsLogged] = useState(false);
-  console.log(isLogged, 'asdasda');
+  const [isLogged, setIsLogged] = useState(true);
+
   useEffect(() => {
-    loginStore
-      .checkUserIsLogged()
-      .then((isUserLogged: boolean) => {
-        console.log(isUserLogged);
-        setIsLogged(isUserLogged);
-      })
-      .catch(() => setIsLogged(false));
+    setIsLogged(loginStore.checkUserIsLogged());
   }, []);
 
   if (!isLogged) {

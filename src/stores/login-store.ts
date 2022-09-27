@@ -23,22 +23,13 @@ class LoginStore {
     this.setTokenToHeader(accessToken);
   }
 
-  async checkUserIsLogged() {
+  checkUserIsLogged() {
     const token = localStorage.getItem('token-contact');
     this.setTokenToHeader(token);
-
+    
     const user = localStorage.getItem('user-contact');
-    console.log(token, user);
-    if (token && user) {
-      try {
-        const response = await httpClient.get('/check');
-        console.log(response);
-        if (response.status === 200) return true;
-        return false;
-      } catch {
-        return false;
-      }
-    }
+
+    if (!!token && !!user) return true;
     return false;
   }
 

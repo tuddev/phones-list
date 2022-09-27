@@ -4,6 +4,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
+import { loginStore } from '../stores';
 
 export enum HttpCodes {
   UNAUTHORIZED = 401,
@@ -20,6 +21,7 @@ class HttpClient {
       (response: AxiosResponse) => response,
       (error: AxiosError) => {
         if (HttpCodes.UNAUTHORIZED === error?.response?.status) {
+          loginStore.logout();
           throw new Error('Не авторизован');
         }
 

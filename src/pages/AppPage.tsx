@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components';
-import { loginStore } from '../stores';
 import { AuthPage } from './AuthPage';
 import { ContactsPage } from './ContactsPage';
 import { SignUpPage } from './SignUpPage';
