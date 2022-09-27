@@ -5,7 +5,7 @@ import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
 import { loginFormStore } from '../LoginFormStore';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginStore } from '../../../../stores';
+import { loginStore } from '../../../../services';
 
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
