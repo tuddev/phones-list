@@ -1,3 +1,35 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "123@123.123",
+      "password": "$2a$10$UBvAw2b6V5U99SS1x5CmDuR0CAxHk0MjRUDkapNW.YuMgI8rWK0.S",
+      "id": "d9fc364a-599d-4912-9bfa-ba90c7954982",
+      "name": "123"
+    },
+    {
+      "email": "nas@nas.ru",
+      "password": "$2a$10$MfFElpBNUT9gJTdwlIchouBD1kU90NmqvfVgE/J9Mnbl.L2QyoGbS",
+      "id": "bae6f6ae-bd43-4336-81d3-ff49ec8bb770",
+      "name": "nastya"
+    },
+    {
+      "email": "nas@nas.rt",
+      "password": "$2a$10$Fz8pSTE3dcghla6GszIAOuQUQK8.V4RCgrYeNDW0BruSK5ZCSkMeu",
+      "id": "8f1d0362-1aa6-4d73-8ee3-c60200ded042",
+      "name": "nas"
+    },
+    {
+      "email": "234234@sfdsklf.sadf",
+      "password": "$2a$10$/25T48R40YGrNq/YfNF9QeVU.Twle/H6sG9UljofIMGiqYnrjqiIC",
+      "id": "92280f31-9843-4864-81ab-7c9161ee6879",
+      "name": "12343"
+    },
+    {
+      "email": "dlksdfl@dfslk.ru",
+      "password": "$2a$10$2Sy5gBfkk7M2DwKqxbjzfO2axvMGqMMs7TZA3RYdC07ZDH.cb21ki",
+      "id": "1067ca3f-6e86-4fe3-b5d1-4e45c3fc5d98",
+      "name": "flska;lsf"
+    }
+  ],
+  "check": []
 }

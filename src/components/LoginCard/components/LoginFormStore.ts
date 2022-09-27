@@ -21,6 +21,10 @@ class LoginFormStore {
     this.setFormStep(this.formStepNumber + 1);
   }
 
+  resetSteps(): void {
+    this.setFormStep(0);
+  }
+
   submitForm(values: Record<string, string>) {
     console.log(values, 'sadsds');
   }

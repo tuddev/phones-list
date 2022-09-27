@@ -18,8 +18,8 @@ export const LoginCard: React.FC = observer(() => {
         <LoginFormPassword
           validate={(values: Record<string, string>) => {
             const errors: Record<string, string> = {};
-            if (!values.name) {
-              errors.name = 'Required';
+            if (!values.email) {
+              errors.email = 'Required';
             }
             return errors;
           }}

@@ -4,9 +4,13 @@ import React, { Children } from 'react';
 import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
 import { loginFormStore } from '../LoginFormStore';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginStore } from '../../../../stores';
 
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
+    const navigate = useNavigate();
+
     const childrenAsArray = Children.toArray(children);
     const isLastPage =
       loginFormStore.formStepNumber === React.Children.count(children) - 1;
@@ -22,7 +26,14 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
 
     const handleFormSubmit = (values: Record<string, string>) => {
       if (isLastPage) {
-        return console.log(values, 'submit');
+        loginStore.login(values.email, values.password)
+          .then(() => {
+            console.log('logged');
+            navigate('/');
+          })
+          .catch(() => {
+            console.log('catch');
+          });
       } else {
         loginFormStore.nextStep();
       }
@@ -54,6 +65,13 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
                   >
                     Назад
                   </Button>
+                )}
+                {loginFormStore.formStepNumber === 0 && (
+                  <Link
+                    to="/signup"
+                  >
+                    Нет аккаунта? Создать!
+                  </Link>
                 )}
               </Grid>
               <Grid item>

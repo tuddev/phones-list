@@ -13,7 +13,7 @@ export const LoginFormName: React.FC = () => {
   };
 
   return (
-    <Field name="name" validate={required} fullWidth >
+    <Field name="email" validate={required} fullWidth >
       {({ input, meta }) => (
         <>
           <TextField
