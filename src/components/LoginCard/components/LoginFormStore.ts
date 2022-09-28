@@ -24,10 +24,6 @@ class LoginFormStore {
   resetSteps(): void {
     this.setFormStep(0);
   }
-
-  submitForm(values: Record<string, string>) {
-    console.log(values, 'sadsds');
-  }
 }
 
 export const loginFormStore = new LoginFormStore();

@@ -1,9 +1,11 @@
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Field, Form } from 'react-final-form';
+import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import { loginStore } from '../../../../services';
+import { validatePassword, validateRequired } from '../../../../utils';
+import { TextFieldForm } from '../../../Forms';
 
 export const SignUpForm: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -16,11 +18,10 @@ export const SignUpForm: React.FC = observer(() => {
     loginStore
       .signup(values.name, values.email, values.password)
       .then(() => {
-        console.log('logged');
         navigate('/');
       })
       .catch(() => {
-        console.log('catch');
+        throw new Error('Ошибка логина');
       });
   };
   return (
@@ -28,66 +29,29 @@ export const SignUpForm: React.FC = observer(() => {
       onSubmit={handleFormSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="name">
-            {({ input, meta }) => (
-              <>
-                <TextField
-                  fullWidth
-                  required
-                  type="text"
-                  error={meta.error && meta.touched}
-                  margin="normal"
-                  helperText={
-                    meta.error && meta.touched ? 'Это поле обязательно' : ''
-                  }
-                  label="Введите имя"
-                  variant="outlined"
-                  color={meta.error && meta.touched ? 'error' : 'info'}
-                  {...input}
-                />
-              </>
-            )}
-          </Field>
-          <Field name="email" type="email">
-            {({ input, meta }) => (
-              <>
-                <TextField
-                  fullWidth
-                  type="text"
-                  required
-                  error={meta.error && meta.touched}
-                  margin="normal"
-                  helperText={
-                    meta.error && meta.touched ? 'Это поле обязательно' : ''
-                  }
-                  label="Введите email"
-                  variant="outlined"
-                  color={meta.error && meta.touched ? 'error' : 'info'}
-                  {...input}
-                />
-              </>
-            )}
-          </Field>
-          <Field name="password" type="password">
-            {({ input, meta }) => (
-              <>
-                <TextField
-                  fullWidth
-                  type="password"
-                  required
-                  error={meta.error && meta.touched}
-                  margin="normal"
-                  helperText={
-                    meta.error && meta.touched ? 'Это поле обязательно' : ''
-                  }
-                  label="Введите пароль"
-                  variant="outlined"
-                  color={meta.error && meta.touched ? 'error' : 'info'}
-                  {...input}
-                />
-              </>
-            )}
-          </Field>
+          <TextFieldForm
+            name="name"
+            label="Имя"
+            errorText="Это поле обязательно"
+            validate={validateRequired}
+            isRequired
+          />
+          <TextFieldForm
+            name="email"
+            type="email"
+            label="Email"
+            errorText="Это поле обязательно"
+            validate={validateRequired}
+            isRequired
+          />
+          <TextFieldForm
+            name="password"
+            type="password"
+            label="Пароль"
+            errorText="Это поле обязательно"
+            validate={validatePassword}
+            isRequired
+          />
           <Button type="submit">Создать аккаунт</Button>
         </form>
       )}
