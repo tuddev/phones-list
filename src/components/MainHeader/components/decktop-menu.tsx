@@ -1,12 +1,13 @@
 import React from 'react';
 import { Menu, MenuItem } from '@mui/material';
+import { loginStore } from '../../../services';
+import { useNavigate } from 'react-router-dom';
 
 export type TDesktopMenuProps = {
   isMenuOpen: boolean;
   anchorEl: HTMLElement;
   menuId: string;
   setAnchorEl: (value: HTMLElement)  => void;
-  onClose: () => void;
 };
 
 export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
@@ -14,11 +15,17 @@ export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
   isMenuOpen,
   menuId,
   setAnchorEl,
-  onClose,
 }) => {
+  const navigate = useNavigate();
+
   const handleMenuClose = () => {
     setAnchorEl(null);
-    onClose();
+  };
+
+  const handleLogoutClick = () => {
+    loginStore.logout();
+    navigate('/login');
+    handleMenuClose();
   };
   
   return (
@@ -37,8 +44,7 @@ export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogoutClick}>Выйти</MenuItem>
     </Menu>
   );
 };

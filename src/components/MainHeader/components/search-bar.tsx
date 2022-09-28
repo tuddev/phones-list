@@ -61,10 +61,9 @@ export const SearchBar: React.FC = observer(() => {
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
-        placeholder="Search…"
+        placeholder="Поиск"
         value={searchQuery}
         onChange={handleChange}
-        inputProps={{ 'aria-label': 'search' }}
       />
     </Search>
   );
