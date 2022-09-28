@@ -1,6 +1,13 @@
 import { httpClient } from '../utils';
 import { v4 as uuid } from 'uuid';
 
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};
+
 class LoginStore {
   token: string | null = null;
   
@@ -33,7 +40,7 @@ class LoginStore {
     this.setUserData(user, token);
   }
 
-  getUser() {
+  getUser(): User | null | undefined {
     return JSON.parse(localStorage.getItem('user-contact'));
   }
 
@@ -42,7 +49,7 @@ class LoginStore {
     this.setTokenToHeader(token);
     
     const user = localStorage.getItem('user-contact');
-    
+
     if (!!token && !!user && token !== 'null' && user !== 'null') return true;
     return false;
   }

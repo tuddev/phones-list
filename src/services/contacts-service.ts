@@ -24,7 +24,7 @@ class ContactsService {
     try {
       // Так как json-server-auth не умеет отдавать ресурсы только создателя,
       // то запрашиваю их с фильтром по userId
-      return await httpClient.get(`${CONTACTS_ENDPOINT}/?userId=${loginStore.getUser().id}`);
+      return await httpClient.get(`${CONTACTS_ENDPOINT}/?userId=${loginStore.getUser()?.id}`);
     } catch {
       throw new Error('Не удалось получить контакты');
     }
