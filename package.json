@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typecheck": "yarn tsc --noemit",
     "lint": "npx eslint ./src/**/* --ext .js,.jsx,.ts,.tsx",
     "lint-fix": "npx eslint ./src/**/* --ext .js,.jsx,.ts,.tsx --fix",
     "style-lint": "npx stylelint ./src/**/*.scss",
