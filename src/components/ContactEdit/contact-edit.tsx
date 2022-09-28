@@ -23,11 +23,22 @@ type TContactEditProps = {
 };
 
 const required = (value: string) => {
-  return value && value !== '' ? null : (
+  return value !== '' ? null : (
     <Typography variant="subtitle2" color="error">
       Это поле обязательно
     </Typography>
   );
+};
+
+
+const validateTel = (value: string | undefined) => {
+  const regOnlyDigitAndSigns = /^[\d ()+-]+$/;
+  if (!regOnlyDigitAndSigns.test(value))
+    return (
+      <Typography variant="subtitle2" color="error">
+        Неверный телефон
+      </Typography>
+    );
 };
 
 export const ContactEdit: React.FC<TContactEditProps> = observer(
@@ -102,12 +113,13 @@ export const ContactEdit: React.FC<TContactEditProps> = observer(
                           </>
                         )}
                       </Field>
-                      <Field name="tel" type="tel">
+                      <Field name="tel" type="tel" validate={validateTel}>
                         {({ input, meta }) => (
                           <>
-                            <InputMask mask="(+7)-999-999-99-99" {...input}>
+                            <InputMask mask="+7 999 999 99 99" maskChar={null} {...input} >
                               <TextField
                                 fullWidth
+                                required
                                 type="tel"
                                 error={meta.error && meta.touched}
                                 margin="normal"
