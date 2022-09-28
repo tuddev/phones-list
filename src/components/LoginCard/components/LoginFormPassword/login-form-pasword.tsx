@@ -1,4 +1,5 @@
 import React from 'react';
+import { validatePassword } from '../../../../utils';
 import { TextFieldForm } from '../../../Forms';
 
 type TLoginFormPasswordProps = {
@@ -9,8 +10,10 @@ export const LoginFormPassword: React.FC<TLoginFormPasswordProps> = () => {
   return (
     <TextFieldForm
       name="password"
+      isAutoFocus
       label="Пароль"
-      errorText="Это поле обязательно"
+      validate={validatePassword}
+      errorText="Пароль должен быть длиннее 8 символов"
     />
   );
 };

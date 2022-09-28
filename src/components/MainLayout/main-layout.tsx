@@ -5,9 +5,9 @@ import { MainHeader } from '../MainHeader';
 
 export const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <div style={{ backgroundColor: '#CAE1FF' }}>
+    <div style={{ backgroundColor: '#CAE1FF', minHeight: '100vh' }}>
       <MainHeader />
-      <ContainerContent>{children}</ContainerContent>
+      <ContainerContent>{children}</ContainerContent> 
     </div>
   );
 };

@@ -48,7 +48,7 @@ export const SignUpForm: React.FC = observer(() => {
             name="password"
             type="password"
             label="Пароль"
-            errorText="Это поле обязательно"
+            errorText="Пароль должен быть длиннее 8 символов"
             validate={validatePassword}
             isRequired
           />

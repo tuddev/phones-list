@@ -42,8 +42,8 @@ class LoginStore {
     this.setTokenToHeader(token);
     
     const user = localStorage.getItem('user-contact');
-
-    if (!!token && !!user) return true;
+    
+    if (!!token && !!user && token !== 'null' && user !== 'null') return true;
     return false;
   }
 
