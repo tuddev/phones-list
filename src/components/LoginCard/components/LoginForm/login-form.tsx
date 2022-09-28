@@ -5,7 +5,7 @@ import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
 import { loginFormStore } from '../login-form-store';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginStore } from '../../../../services';
+import { loginService } from '../../../../services';
 
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
@@ -30,7 +30,7 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
 
     const handleFormSubmit = (values: Record<string, string>) => {
       if (isLastPage) {
-        return loginStore.login(values.email, values.password)
+        return loginService.login(values.email, values.password)
           .then(() => {
             navigate('/');
           })

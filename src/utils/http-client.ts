@@ -4,7 +4,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-import { loginStore } from '../services';
+import { loginService } from '../services';
 
 export enum HttpCodes {
   UNAUTHORIZED = 401,
@@ -21,7 +21,7 @@ class HttpClient {
       (response: AxiosResponse) => response,
       (error: AxiosError) => {
         if (HttpCodes.UNAUTHORIZED === error?.response?.status) {
-          loginStore.logout();
+          loginService.logout();
           throw new Error('Не авторизован');
         }
 
@@ -30,7 +30,7 @@ class HttpClient {
     );
     this.axiosInstance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        const token = loginStore.token;
+        const token = loginService.token;
         return {
           ...config,
           headers: {

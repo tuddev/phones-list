@@ -1,6 +1,6 @@
 import { httpClient } from '../utils';
 import { v4 as uuid } from 'uuid';
-import { loginStore } from './login-store';
+import { loginService } from './login-service';
 
 export type ContactModel = {
   id: string;
@@ -24,7 +24,7 @@ class ContactsService {
     try {
       // Так как json-server-auth не умеет отдавать ресурсы только создателя,
       // то запрашиваю их с фильтром по userId
-      return await httpClient.get(`${CONTACTS_ENDPOINT}/?userId=${loginStore.getUser()?.id}`);
+      return await httpClient.get(`${CONTACTS_ENDPOINT}/?userId=${loginService.getUser()?.id}`);
     } catch {
       throw new Error('Не удалось получить контакты');
     }

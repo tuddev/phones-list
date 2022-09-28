@@ -8,7 +8,7 @@ type User = {
   password: string;
 };
 
-class LoginStore {
+class LoginService {
   token: string | null = null;
   
   private setUserDataToStorage(user: Record<string, string> | null, accessToken: string) {
@@ -89,4 +89,4 @@ class LoginStore {
   }
 }
 
-export const loginStore = new LoginStore();
+export const loginService = new LoginService();

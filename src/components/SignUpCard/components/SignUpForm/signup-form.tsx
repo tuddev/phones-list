@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
-import { loginStore } from '../../../../services';
+import { loginService } from '../../../../services';
 import { validatePassword, validateRequired } from '../../../../utils';
 import { TextFieldForm } from '../../../Forms';
 
@@ -15,7 +15,7 @@ export const SignUpForm: React.FC = observer(() => {
     name: string;
     password: string;
   }) => {
-    loginStore
+    loginService
       .signup(values.name, values.email, values.password)
       .then(() => {
         navigate('/');

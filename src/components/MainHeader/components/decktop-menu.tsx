@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu, MenuItem } from '@mui/material';
-import { loginStore } from '../../../services';
+import { loginService } from '../../../services';
 import { useNavigate } from 'react-router-dom';
 
 export type TDesktopMenuProps = {
@@ -23,7 +23,7 @@ export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
   };
 
   const handleLogoutClick = () => {
-    loginStore.logout();
+    loginService.logout();
     navigate('/login');
     handleMenuClose();
   };
