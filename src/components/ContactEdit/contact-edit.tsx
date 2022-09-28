@@ -2,43 +2,23 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  TextField,
   DialogActions,
   Button,
   IconButton,
-  Typography,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { Field, Form } from 'react-final-form';
+import { Form } from 'react-final-form';
 import { Contact, ContactModel } from '../../services';
 import AddIcon from '@mui/icons-material/Add';
-import InputMask from 'react-input-mask';
+import { TextFieldForm } from '../Forms';
+import { validateRequired, validateTel } from '../../utils';
 
 type TContactEditProps = {
   onSubmit: (values: Contact) => Promise<void>;
   contact?: ContactModel;
   variant?: 'edit' | 'add';
-};
-
-const required = (value: string) => {
-  return value !== '' ? null : (
-    <Typography variant="subtitle2" color="error">
-      Это поле обязательно
-    </Typography>
-  );
-};
-
-
-const validateTel = (value: string | undefined) => {
-  const regOnlyDigitAndSigns = /^[\d ()+-]+$/;
-  if (!regOnlyDigitAndSigns.test(value))
-    return (
-      <Typography variant="subtitle2" color="error">
-        Неверный телефон
-      </Typography>
-    );
 };
 
 export const ContactEdit: React.FC<TContactEditProps> = observer(
@@ -88,80 +68,27 @@ export const ContactEdit: React.FC<TContactEditProps> = observer(
                   submit = handleSubmit;
                   return (
                     <form onSubmit={handleSubmit}>
-                      <Field name="name" validate={required}>
-                        {({ input, meta }) => (
-                          <>
-                            <TextField
-                              fullWidth
-                              autoFocus
-                              required
-                              type="text"
-                              error={meta.error && meta.touched}
-                              margin="normal"
-                              helperText={
-                                meta.error && meta.touched
-                                  ? 'Это поле обязательно'
-                                  : ''
-                              }
-                              label="Имя"
-                              variant="outlined"
-                              color={
-                                meta.error && meta.touched ? 'error' : 'info'
-                              }
-                              {...input}
-                            />
-                          </>
-                        )}
-                      </Field>
-                      <Field name="tel" type="tel" validate={validateTel}>
-                        {({ input, meta }) => (
-                          <>
-                            <InputMask mask="+7 999 999 99 99" maskChar={null} {...input} >
-                              <TextField
-                                fullWidth
-                                required
-                                type="tel"
-                                error={meta.error && meta.touched}
-                                margin="normal"
-                                helperText={
-                                  meta.error && meta.touched
-                                    ? 'Это поле обязательно'
-                                    : ''
-                                }
-                                label="Телефон"
-                                variant="outlined"
-                                color={
-                                  meta.error && meta.touched ? 'error' : 'info'
-                                }
-                                {...input}
-                              />
-                            </InputMask>
-                          </>
-                        )}
-                      </Field>
-                      <Field name="email" type="email">
-                        {({ input, meta }) => (
-                          <>
-                            <TextField
-                              fullWidth
-                              type="text"
-                              error={meta.error && meta.touched}
-                              margin="normal"
-                              helperText={
-                                meta.error && meta.touched
-                                  ? 'Это поле обязательно'
-                                  : ''
-                              }
-                              label="Email"
-                              variant="outlined"
-                              color={
-                                meta.error && meta.touched ? 'error' : 'info'
-                              }
-                              {...input}
-                            />
-                          </>
-                        )}
-                      </Field>
+                      <TextFieldForm
+                        name="name"
+                        label="Имя"
+                        validate={validateRequired}
+                        errorText="Это поле обязательно"
+                        isRequired
+                      />
+                      <TextFieldForm
+                        name="tel"
+                        type="tel"
+                        label="Телефон"
+                        validate={validateTel}
+                        errorText="Неверный номер телефона"
+                        mask="+7 999 999 99 99"
+                      />
+                      <TextFieldForm
+                        name="email"
+                        type="email"
+                        label="Email"
+                        isRequired
+                      />
                     </form>
                   );
                 }}

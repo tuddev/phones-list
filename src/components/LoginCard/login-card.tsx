@@ -1,10 +1,10 @@
 import { Paper } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { TextFieldForm } from '../Forms';
 import {
   HeaderLoginCard,
   LoginForm,
-  LoginFormName,
   LoginFormPassword,
 } from './components';
 
@@ -14,7 +14,12 @@ export const LoginCard: React.FC = observer(() => {
       <HeaderLoginCard />
 
       <LoginForm>
-        <LoginFormName />
+        <TextFieldForm
+          name="email"
+          type="email"
+          label="Email"
+          errorText="Это поле обязательно"
+        />
         <LoginFormPassword
           validate={(values: Record<string, string>) => {
             const errors: Record<string, string> = {};

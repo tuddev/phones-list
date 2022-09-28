@@ -7,7 +7,7 @@ export const SignUpCard: React.FC = observer(() => {
   return (
     <Paper elevation={10} style={{ padding: '20px', maxWidth: 300 }}>
       <Typography align="center" fontSize="24px" fontWeight="600">
-        Sign up your profile
+        Регистрация нового профиля
       </Typography>
       <SignUpForm/>
     </Paper>
