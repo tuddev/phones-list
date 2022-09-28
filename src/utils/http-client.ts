@@ -65,6 +65,26 @@ class HttpClient {
       throw new Error(error.message ?? 'Что-то пошло не так');
     }
   }
+
+  async delete(url: string, data: object) {
+    const resultUrl = BACKEND_URL + url;
+
+    try {
+      return await this.axiosInstance.delete(resultUrl, data);
+    } catch (error) {
+      throw new Error(error.message ?? 'Что-то пошло не так');
+    }
+  }
+
+  async put(url: string, data: object) {
+    const resultUrl = BACKEND_URL + url;
+
+    try {
+      return await this.axiosInstance.put(resultUrl, data);
+    } catch (error) {
+      throw new Error(error.message ?? 'Что-то пошло не так');
+    }
+  }
 }
 
 export const httpClient = new HttpClient();

@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 class LoginStore {
   token: string | null = null;
-
+  
   private setUserDataToStorage(user: Record<string, string> | null, accessToken: string) {
     localStorage.setItem('token-contact', accessToken);
     localStorage.setItem('user-contact', JSON.stringify(user));
@@ -19,6 +19,22 @@ class LoginStore {
     this.token = accessToken;
     this.setUserDataToStorage(user, accessToken);
     this.setTokenToHeader(accessToken);
+  }
+
+  private getUserDataFromStorage() {
+    return {
+      user: JSON.parse(localStorage.getItem('user-contact')),
+      token: localStorage.getItem('token-contact'),
+    };
+  }
+
+  init() {
+    const { token, user } = this.getUserDataFromStorage();
+    this.setUserData(user, token);
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user-contact'));
   }
 
   checkUserIsLogged() {

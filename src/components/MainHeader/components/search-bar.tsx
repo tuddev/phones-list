@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
+import { contactsStore } from '../../../stores';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -44,6 +45,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const SearchBar: React.FC = observer(() => {
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  useEffect(() => {
+    contactsStore.searchQuery = searchQuery;
+  }, [searchQuery]);
+  
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <Search style={{ width: 400 }}>
       <SearchIconWrapper>
@@ -51,6 +62,8 @@ export const SearchBar: React.FC = observer(() => {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
+        value={searchQuery}
+        onChange={handleChange}
         inputProps={{ 'aria-label': 'search' }}
       />
     </Search>

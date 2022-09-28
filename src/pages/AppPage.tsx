@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components';
+import { loginStore } from '../services';
 import { AuthPage } from './AuthPage';
 import { ContactsPage } from './ContactsPage';
 import { SignUpPage } from './SignUpPage';
 
 export const AppPage = () => {
+  useLayoutEffect(() => {
+    loginStore.init();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

@@ -1,0 +1,1 @@
+export { contactsStore } from './contacts-store';

@@ -8,6 +8,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { observer } from 'mobx-react-lite';
 import { MainHeaderMenu } from './components/main-header-menu';
 import { SearchBar } from './components/search-bar';
+import { ContactEdit } from '../ContactEdit';
+import { Contact } from '../../services';
+import { contactsStore } from '../../stores';
 
 export const MainHeader = observer(() => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,6 +28,10 @@ export const MainHeader = observer(() => {
     setMobileMoreAnchorEl(null);
   };
 
+  const handleContactEdit = (values: Contact) => {
+    return contactsStore.add(values);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -38,6 +45,7 @@ export const MainHeader = observer(() => {
             Контакты
           </Typography>
           <SearchBar />
+          <ContactEdit onSubmit={handleContactEdit}/>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
