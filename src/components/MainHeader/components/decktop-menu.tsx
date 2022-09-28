@@ -6,7 +6,6 @@ export type TDesktopMenuProps = {
   anchorEl: HTMLElement;
   menuId: string;
   setAnchorEl: (value: HTMLElement)  => void;
-  onClose: () => void;
 };
 
 export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
@@ -14,11 +13,9 @@ export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
   isMenuOpen,
   menuId,
   setAnchorEl,
-  onClose,
 }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
-    onClose();
   };
   
   return (
@@ -37,8 +34,7 @@ export const DecktopMenu: React.FC<TDesktopMenuProps> = ({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 };

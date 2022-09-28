@@ -14,18 +14,11 @@ import { contactsStore } from '../../stores';
 
 export const MainHeader = observer(() => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-    React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
   };
 
   const handleContactEdit = (values: Contact) => {
@@ -47,7 +40,7 @@ export const MainHeader = observer(() => {
           <SearchBar />
           <ContactEdit onSubmit={handleContactEdit}/>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box>
             <IconButton
               size="large"
               edge="end"
@@ -60,10 +53,6 @@ export const MainHeader = observer(() => {
         </Toolbar>
       </AppBar>
       <MainHeaderMenu
-        handleProfileMenuOpen={handleProfileMenuOpen}
-        mobileMoreAnchorEl={mobileMoreAnchorEl}
-        isMobileMenuOpen={isMobileMenuOpen}
-        onClose={handleMobileMenuClose}
         anchorEl={anchorEl}
         isMenuOpen={isMenuOpen}
         setAnchorEl={setAnchorEl}
