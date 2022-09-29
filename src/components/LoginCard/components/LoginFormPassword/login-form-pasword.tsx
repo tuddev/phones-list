@@ -10,10 +10,11 @@ export const LoginFormPassword: React.FC<TLoginFormPasswordProps> = () => {
   return (
     <TextFieldForm
       name="password"
+      type="password"
       isAutoFocus
       label="Пароль"
       validate={validatePassword}
-      errorText="Пароль должен быть длиннее 8 символов"
+      errorText="Пароль должен быть длиннее 7 символов"
     />
   );
 };

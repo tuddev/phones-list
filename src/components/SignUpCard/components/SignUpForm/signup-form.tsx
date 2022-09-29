@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import { loginService } from '../../../../services';
@@ -9,7 +9,8 @@ import { TextFieldForm } from '../../../Forms';
 
 export const SignUpForm: React.FC = observer(() => {
   const navigate = useNavigate();
-
+  const [error, setError] = useState<string>('');
+  
   const handleFormSubmit = (values: {
     email: string;
     name: string;
@@ -21,7 +22,13 @@ export const SignUpForm: React.FC = observer(() => {
         navigate('/');
       })
       .catch(() => {
-        throw new Error('Ошибка логина');
+        if (!navigator.onLine) {
+          setError('Проверьте подключение к интернету');
+          throw new Error('Ошибка при регистрации: Проверьте подключение к интернету');
+        }
+
+        setError('Такой email уже зарегистрирован: попробуйте другой');
+        throw new Error('Ошибка при регистрации: Такой email уже зарегистрирован: попробуйте другой');
       });
   };
   return (
@@ -29,6 +36,7 @@ export const SignUpForm: React.FC = observer(() => {
       onSubmit={handleFormSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
+          {error && <Typography color="red">{error}</Typography>}
           <TextFieldForm
             name="name"
             label="Имя"
@@ -48,7 +56,7 @@ export const SignUpForm: React.FC = observer(() => {
             name="password"
             type="password"
             label="Пароль"
-            errorText="Пароль должен быть длиннее 8 символов"
+            errorText="Пароль должен быть длиннее 7 символов"
             validate={validatePassword}
             isRequired
           />

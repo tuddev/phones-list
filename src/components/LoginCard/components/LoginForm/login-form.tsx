@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import React, { Children, useEffect } from 'react';
+import React, { Children, useEffect, useState } from 'react';
 import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
 import { loginFormStore } from '../login-form-store';
@@ -10,11 +10,12 @@ import { loginService } from '../../../../services';
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
     const navigate = useNavigate();
+    const [error, setError] = useState<string>();
 
     useEffect(() => {
       return () => loginFormStore.resetSteps();
     }, []);
- 
+
     const childrenAsArray = Children.toArray(children);
     const isLastPage =
       loginFormStore.formStepNumber === React.Children.count(children) - 1;
@@ -30,15 +31,24 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
 
     const handleFormSubmit = (values: Record<string, string>) => {
       if (isLastPage) {
-        return loginService.login(values.email, values.password)
+        return loginService
+          .login(values.email, values.password)
           .then(() => {
             navigate('/');
           })
           .catch(() => {
-            throw new Error('Ошибка при логине');
+            if (!navigator.onLine) {
+              setError('Проверьте подключение к интернету');
+
+              throw new Error('Ошибка при логине: Проверьте подключение к интернету');
+            }
+
+            setError('Неправильный логин или пароль');
+            
+            throw new Error('Ошибка при логине: Неправильный логин или пароль');
           });
-      } 
-      
+      }
+
       loginFormStore.nextStep();
     };
 
@@ -48,6 +58,7 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
         onSubmit={handleFormSubmit}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
+            {error && <Typography color="red">{error}</Typography>}
             <Grid
               container
               rowGap={4}
@@ -70,12 +81,8 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
                   </Button>
                 )}
                 {loginFormStore.formStepNumber === 0 && (
-                  <Link
-                    to="/signup"
-                  >
-                    <Typography>
-                      Нет аккаунта? Создать!
-                    </Typography>
+                  <Link to="/signup">
+                    <Typography>Нет аккаунта? Создать!</Typography>
                   </Link>
                 )}
               </Grid>
