@@ -57,7 +57,8 @@ class ContactsStore {
 
     return this.contacts.filter((contact) => {
       if (contact.name.includes(this.searchQuery)) return true;
-      if (contact.tel.includes(this.searchQuery)) return true;
+      if (contact.tel?.includes(this.searchQuery)) return true;
+      if (contact.email?.includes(this.searchQuery)) return true;
 
       return false;
     }); 
