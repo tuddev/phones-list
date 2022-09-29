@@ -27,6 +27,7 @@
         "arrow-spacing": "error",
         "max-len": ["error", { "code": 120 }],
         "@typescript-eslint/space-before-function-paren": "off",
+        "@typescript-eslint/no-explicit-any": "error",
         "react/function-component-definition": [
             "error",
             {
