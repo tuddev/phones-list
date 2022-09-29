@@ -1,16 +1,20 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import React, { Children } from 'react';
+import React, { Children, useEffect } from 'react';
 import * as ReactIs from 'react-is';
 import { Form } from 'react-final-form';
-import { loginFormStore } from '../LoginFormStore';
+import { loginFormStore } from '../login-form-store';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginStore } from '../../../../services';
+import { loginService } from '../../../../services';
 
 export const LoginForm: React.FC<React.PropsWithChildren> = observer(
   ({ children }) => {
     const navigate = useNavigate();
 
+    useEffect(() => {
+      return () => loginFormStore.resetSteps();
+    }, []);
+ 
     const childrenAsArray = Children.toArray(children);
     const isLastPage =
       loginFormStore.formStepNumber === React.Children.count(children) - 1;
@@ -26,17 +30,16 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
 
     const handleFormSubmit = (values: Record<string, string>) => {
       if (isLastPage) {
-        loginStore.login(values.email, values.password)
+        return loginService.login(values.email, values.password)
           .then(() => {
-            console.log('logged');
             navigate('/');
           })
           .catch(() => {
-            console.log('catch');
+            throw new Error('Ошибка при логине');
           });
-      } else {
-        loginFormStore.nextStep();
-      }
+      } 
+      
+      loginFormStore.nextStep();
     };
 
     return (
@@ -70,7 +73,9 @@ export const LoginForm: React.FC<React.PropsWithChildren> = observer(
                   <Link
                     to="/signup"
                   >
-                    Нет аккаунта? Создать!
+                    <Typography>
+                      Нет аккаунта? Создать!
+                    </Typography>
                   </Link>
                 )}
               </Grid>

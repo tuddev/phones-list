@@ -74,6 +74,7 @@ export const ContactEdit: React.FC<TContactEditProps> = observer(
                         validate={validateRequired}
                         errorText="Это поле обязательно"
                         isRequired
+                        isAutoFocus
                       />
                       <TextFieldForm
                         name="tel"

@@ -1,5 +1,4 @@
 {
   "/users*": "/600/users$1",
-  "/contacts*": "/640/contacts$1",
-  "/check*": "/660/check$1"
+  "/contacts*": "/600/contacts$1"
 }

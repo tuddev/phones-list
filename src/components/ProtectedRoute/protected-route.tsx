@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { loginStore } from '../../services';
+import { loginService } from '../../services';
 
 type TProtectedRouteProps = {
   redirectPath?: string;
@@ -13,7 +13,7 @@ React.PropsWithChildren<TProtectedRouteProps>
   const [isLogged, setIsLogged] = useState(true);
 
   useEffect(() => {
-    setIsLogged(loginStore.checkUserIsLogged());
+    setIsLogged(loginService.checkUserIsLogged());
   }, []);
 
   if (!isLogged) {

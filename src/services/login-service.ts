@@ -1,7 +1,14 @@
 import { httpClient } from '../utils';
 import { v4 as uuid } from 'uuid';
 
-class LoginStore {
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};
+
+class LoginService {
   token: string | null = null;
   
   private setUserDataToStorage(user: Record<string, string> | null, accessToken: string) {
@@ -33,7 +40,7 @@ class LoginStore {
     this.setUserData(user, token);
   }
 
-  getUser() {
+  getUser(): User | null | undefined {
     return JSON.parse(localStorage.getItem('user-contact'));
   }
 
@@ -43,7 +50,7 @@ class LoginStore {
     
     const user = localStorage.getItem('user-contact');
 
-    if (!!token && !!user) return true;
+    if (!!token && !!user && token !== 'null' && user !== 'null') return true;
     return false;
   }
 
@@ -82,4 +89,4 @@ class LoginStore {
   }
 }
 
-export const loginStore = new LoginStore();
+export const loginService = new LoginService();
